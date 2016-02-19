@@ -1,37 +1,44 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-$script = '
-echo Installing dependencies...
-sudo apt-get update
-sudo apt-get install -y unzip curl
-echo Fetching Consul...
-cd /tmp/
-wget https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_linux_amd64.zip -O consul.zip
-echo Installing Consul...
-unzip consul.zip
-sudo chmod +x consul
-sudo mv consul /usr/bin/consul
-sudo mkdir /etc/consul.d
-sudo chmod a+w /etc/consul.d
-'
+#^syntax detection
+nodes_config = (JSON.parse(File.read("config/nodes.json"))) ['nodes']
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "debian/wheezy64"
+  config.vm.box = "hashicorp/precise64"
 
-  config.vm.provision "shell", inline: $script
+  config.ssh.forward_agent = true
 
-  config.vm.define "n1" do |n1|
-      n1.vm.hostname = "n1"
-      n1.vm.network "private_network", ip: "172.20.20.10"
-  end
+  nodes_config.each do | node |
+   node_name   = node[0]
+   node_values = node[1]
 
-  config.vm.define "n2" do |n2|
-      n2.vm.hostname = "n2"
-      n2.vm.network "private_network", ip: "172.20.20.11"
-  end
+   config.vm.define node_name do | config |
+     config.vm.hostname = node_name
 
-  config.vm.define "n3" do |n2|
-      n2.vm.hostname = "n3"
-      n2.vm.network "private_network", ip: "172.20.20.12"
-  end
+     ports = node_values['ports']
+     ports.each do | port |
+       config.vm.network :forwarded_port,
+         host:  port[':host'],
+         guest: port[':guest'],
+         id:    port[':id']
+     end
+
+     config.vm.network :private_network,
+       ip: node_values[':ip'],
+       auto_config: false
+
+       config.vm.provision "shell" do | script |
+         script.path = node_values[':bootstrap']
+         script.args = node_values[':config']
+       end
+
+       config.vm.provider :virtualbox do | vb |
+         #vb.gui = true
+         vb.customize ["modifyvm", :id, "--memory",  node_values[':memory']]
+         vb.customize ["modifyvm", :id, "--name",    node_name]
+       end
+
+       config.vm.provision :shell, :path => node_values[':bootstrap']
+     end
+   end
 end
