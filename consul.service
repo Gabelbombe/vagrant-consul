@@ -7,3 +7,6 @@ ExecStop=/usr/bin/consul agent stop
 
 [Install]
 WantedBy=multi-user.target
+
+Wants=network-online.target
+After=network-online.target
