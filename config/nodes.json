@@ -5,28 +5,28 @@
       "ports": [],
       ":memory": 1024,
       ":bootstrap": "bootstrap/node.sh",
-      ":config": "/vagrant/config/node1.json"
+      ":config": "/vagrant/config/nodes/node1.json"
     },
     "node02": {
       ":ip": "172.20.20.20",
       "ports": [],
       ":memory": 1024,
       ":bootstrap": "bootstrap/node.sh",
-      ":config": "/vagrant/config/node02.json"
+      ":config": "/vagrant/config/nodes/node02.json"
     },
     "node03": {
       ":ip": "172.20.20.30",
       "ports": [],
       ":memory": 1024,
       ":bootstrap": "bootstrap/node.sh",
-      ":config": "/vagrant/config/node03.json"
+      ":config": "/vagrant/config/nodes/node03.json"
     },
     "client": {
       ":ip": "172.20.20.40",
       "ports": [],
       ":memory": 1024,
       ":bootstrap": "bootstrap/client.sh",
-      ":config": "/vagrant/config/client.json"
+      ":config": "/vagrant/config/nodes/client.json"
     }
   }
 }
