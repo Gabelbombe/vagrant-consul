@@ -4,21 +4,21 @@
       ":ip": "172.20.20.10",
       "ports": [],
       ":memory": 1024,
-      ":bootstrap": "bootstrap/provision.sh",
+      ":bootstrap": "bootstrap/node.sh",
       ":config": "/vagrant/consul1/config.json"
     },
     "node02": {
       ":ip": "172.20.20.20",
       "ports": [],
       ":memory": 1024,
-      ":bootstrap": "bootstrap/provision.sh",
+      ":bootstrap": "bootstrap/node.sh",
       ":config": "/vagrant/node02/config.json"
     },
     "node03": {
       ":ip": "172.20.20.30",
       "ports": [],
       ":memory": 1024,
-      ":bootstrap": "bootstrap/provision.sh",
+      ":bootstrap": "bootstrap/node.sh",
       ":config": "/vagrant/node03/config.json"
     },
     "client": {
