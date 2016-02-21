@@ -1,0 +1,9 @@
+[Unit]
+Description=Consul
+
+[Service]
+ExecStart=/usr/bin/consul agent -config-file=/etc/consul/config.json
+ExecStop=/usr/bin/consul agent stop
+
+[Install]
+WantedBy=multi-user.target
