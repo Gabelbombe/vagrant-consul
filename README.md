@@ -37,7 +37,7 @@ Some basic test cases from your local.
 DNS interface.
 
 Let's look for an external search service that we hypothetically depend on but which we have not yet added to consul.
-
+```
   ehime:Vagrant Consul$ dig @172.20.20.20 -p 8600 search.service.consul.
 
   ; <<>> DiG 9.8.3-P1 <<>> @172.20.20.20 -p 8600 search.service.consul.
@@ -58,14 +58,16 @@ Let's look for an external search service that we hypothetically depend on but w
   ;; SERVER: 172.20.20.20#8600(172.20.20.20)
   ;; WHEN: Tue Jan 19 22:15:03 2016
   ;; MSG SIZE  rcvd: 107
+```
 
 Now lets add the external service to consul.
-
+```
   curl -X PUT -d '{"Datacenter": "dc1", "Node": "google", "Address": "www.google.com", "Service": {"Service": "search", "Port": 80}}' http://172.20.20.20:8500/v1/catalog/register
   curl -X PUT -d '{"Datacenter": "dc1", "Node": "bing", "Address": "www.bing.com", "Service": {"Service": "search", "Port": 80}}' http://172.20.20.20:8500/v1/catalog/register
+```
 
 If we now use query consul via DNS, we get two results.
-
+```
   ehime:Vagrant Consul$ dig @172.20.20.10 -p 8600 search.service.consul.
 
   ; <<>> DiG 9.8.3-P1 <<>> @172.20.20.10 -p 8600 search.service.consul.
@@ -87,6 +89,7 @@ If we now use query consul via DNS, we get two results.
   ;; SERVER: 172.20.20.10#8600(172.20.20.10)
   ;; WHEN: Tue Jan 19 22:27:20 2016
   ;; MSG SIZE  rcvd: 135
+```
 
 Given that high level service health checking is a part of consul, it is simple
 to make this a highly available constantly expanding/shrinking node pool.
