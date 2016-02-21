@@ -11,3 +11,4 @@ mkdir -p /etc/consul.d /var/consul
 cp $1 /etc/consul.d/config.json
 
 exec consul agent -config-file=/etc/consul.d/config.json
+exec consul agent -ui
