@@ -2,11 +2,12 @@
 apt-get update
 apt-get install -y unzip
 cp /vagrant/config/consul.conf /etc/init/consul.conf
+
 cd /usr/local/bin
-wget https://dl.bintray.com/mitchellh/consul/0.5.2_linux_amd64.zip
-unzip *.zip
-rm *.zip
-mkdir -p /etc/consul.d
-mkdir /var/consul
+wget https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_linux_amd64.zip -O consul.zip
+unzip consul.zip ; rm consul.zip
+
+mkdir -p /etc/consul.d /var/consul
 cp $1 /etc/consul.d/config.json
+
 exec consul agent -config-file=/etc/consul.d/config.json
