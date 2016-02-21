@@ -34,7 +34,8 @@ Once the cluster is up-and-running you will be able to access the Consul Web UI 
 
 Some basic test cases from your local.
 
-DNS interface.
+
+##### DNS interface.
 
 Let's look for an external search service that we hypothetically depend on but which we have not yet added to consul.
 ```
