@@ -5,7 +5,7 @@ apt-get update
 apt-get install -y unzip
 
 # Step 2 - Copy the upstart script to the /etc/init folder.
-cp /vagrant/consul.conf /etc/init/consul.conf
+cp /vagrant/config/consul.conf /etc/init/consul.conf
 
 # Step 3 - Get the Consul Zip file and extract it.
 cd /usr/local/bin

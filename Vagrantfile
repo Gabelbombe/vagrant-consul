@@ -37,8 +37,6 @@ Vagrant.configure(2) do |config|
          vb.customize ["modifyvm", :id, "--memory",  node_values[':memory']]
          vb.customize ["modifyvm", :id, "--name",    node_name]
        end
-
-       config.vm.provision :shell, :path => node_values[':bootstrap']
      end
    end
 end
